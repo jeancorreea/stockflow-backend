@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  stockflow-backend:
+    image: stockflow-backend:latest
+    container_name: stockflow-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - stockflow-db
+
+  stockflow-db:
+    image: postgres:15
+    container_name: stockflow-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - stockflow-db-data:/var/lib/postgresql/data
+
+volumes:
+  stockflow-db-data:

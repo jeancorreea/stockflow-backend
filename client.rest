@@ -1,0 +1,13 @@
+@baseUrl=http://localhost:3000
+
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "employee_code": "your-employee-code",
+  "password": "your-password-here"
+}
+
+###
+
+GET {{baseUrl}}/feature
